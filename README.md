@@ -1,90 +1,43 @@
-# drone-sim
+# Robot arm simulator
 
-Autonomous drone simulator built on MuJoCo, using the Skydio X2 airframe from
-MuJoCo Menagerie. Course project for Prof. Raffaele De Amicis, Oregon State.
+Simulation of a robot arm in MuJoCo, to be driven later by a human input device
+(a "bracelet", exact device not yet known). Course project for
+Prof. Raffaele De Amicis, Oregon State.
 
-## Setup
+This repository started as a drone simulator. That work stopped in October 2026
+and lives in `archive/drone/` for reference. Nothing in there is used.
 
-```bash
-python3.12 -m venv .venv
-.venv/bin/pip install -r requirments.txt
+## Setup (Windows)
+
+```powershell
+.\setup.ps1
 ```
 
-Main dependency is `mujoco==3.11.0`. Python 3.12.
+Creates `.venv` with Python 3.12 and installs `requirements.txt`
+(`mujoco==3.11.0` is the main dependency). Works the same on any Windows machine
+after `git clone`, so the desktop and the laptop stay identical.
 
-## Running it
+VS Code picks up `.venv\Scripts\python.exe` automatically via
+`.vscode/settings.json`.
 
-```bash
-.venv/bin/python probe.py
-```
+## Running
 
-Loads the scene and prints the model's key numbers — degrees of freedom,
-actuator count, total mass, timestep. Then drops the drone from 5 m and steps
-the physics 1000 times, printing altitude every 100 steps. This is the quickest
-way to confirm the model is intact.
+Nothing runs yet. The arm model is chosen in lesson 1 (see `LESSONS.md`) and
+scripts appear as the lessons are completed.
 
-Expected output starts like this:
+## Documents
 
-```
-qpos length: 7
-actuators:   4
-total mass:  1.325 kg
-timestep:    0.01 s
-```
-
-```bash
-.venv/bin/mjpython view.py
-```
-
-Same scene in an interactive viewer window. You can orbit the camera and watch
-the drone.
-
-On macOS the viewer must be launched with `mjpython`, not `python` — the OS
-requires the GUI event loop to own the main thread. Running it under plain
-`python` raises a RuntimeError from `launch_passive` telling you to use
-`mjpython`. Headless scripts like `probe.py` are unaffected.
-
-## What's in here
-
-| Path | What it is |
+| File | What it is |
 |---|---|
-| `assets/x2/x2.xml` | The Skydio X2 airframe. Stock Menagerie file, unmodified |
-| `assets/x2/scene.xml` | Wraps the airframe — sky, ground plane, lighting |
-| `probe.py` | Headless check: model stats + a drop test |
-| `view.py` | The same scene in the MuJoCo viewer (run with `mjpython`) |
-| `drill.py`, `basics.py` | Early Python/NumPy exercises. Not part of the sim |
+| `LESSONS.md` | The curriculum: one concept per lesson, task, numeric check |
+| `LOG.md` | Learning log: what was done, what was learned, what is unclear |
+| `TECHNOLOGY_RESEARCH.md` | Why MuJoCo over Isaac Lab, and the device-adapter architecture |
+| `.claude/skills/robot-arm/` | Project context for Claude: invariants, decisions, stop-and-ask points |
+| `archive/drone/` | The previous drone project, kept for history |
 
-## The model
+## Working rules
 
-Skydio X2, 1.325 kg, four thrust motors, physics at 100 Hz (timestep 0.01 s).
-
-MuJoCo derives the inertial properties from the geometry rather than reading
-them from an `<inertial>` block — there isn't one in the file. Worth knowing:
-
-- Centre of mass sits **5.4 cm above the body origin**, so the position in
-  `qpos[0:3]` is not the COM.
-- The inertia tensor has a real off-diagonal term, because the front rotors are
-  mounted 3 cm higher than the rear ones. The airframe isn't symmetric about its
-  own XY plane.
-
-## Current status
-
-The model loads and simulates correctly. **There is no controller yet** — both
-scripts leave `data.ctrl` at zero, so the drone falls. That's expected at this
-stage, not a bug.
-
-The model already ships a hover keyframe (`x2.xml`, line 69) with the thrust
-values for a stable hover. Wiring that up is the next step.
-
-Not built yet: controller, trajectory following, multi-drone scene, the
-WebSocket pose stream, the CesiumJS front-end.
-
-## Notes and planning
-
-Longer working documents live alongside this file:
-
-- `PLAN.md` — work plan for the environment/terrain task, broken into steps
-- `LEARNING.md` — the concepts behind each step, with references
-- `RISKS.md` — things that would be expensive to discover late
-- `REPRO.md` — how performance numbers should be measured
-- `DEFENSE.md` — current claims and what evidence backs each one
+- Pull at the start of a session, push at the end. Every lesson ends in a pushed commit.
+- Never judge correctness by looking at the viewer. Every script asserts a number
+  computed independently.
+- Never commit `.venv/`.
