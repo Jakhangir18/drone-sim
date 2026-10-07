@@ -46,6 +46,7 @@ scripts appear as the lessons are completed.
 |---|---|
 | `LESSONS.md` | The curriculum: one concept per lesson, task, numeric check |
 | `LOG.md` | Learning log: what was done, what was learned, what is unclear |
+| `AGENTS.md` | Rules every AI assistant must follow here: teach, do not just give answers |
 | `TECHNOLOGY_RESEARCH.md` | Why MuJoCo over Isaac Lab, and the device-adapter architecture |
 | `.claude/skills/robot-arm/` | Project context for Claude: invariants, decisions, stop-and-ask points |
 | `archive/drone/` | The previous drone project, kept for history |
