@@ -1,24 +1,39 @@
 # Robot arm simulator
 
-Simulation of a robot arm in MuJoCo, to be driven later by a human input device
-(a "bracelet", exact device not yet known). Course project for
+Simulation of a robot arm in MuJoCo, to be driven later by a human input device. Aslo i just want to metio that we need also work on jostics (i mean animation where you can yse ur jostion for VR and then there would nice animation how robot make the same movemts)
+
+
+
+(a "bracelet", exact device not yet known maybe ). Course project for
 Prof. Raffaele De Amicis, Oregon State.
 
 This repository started as a drone simulator. That work stopped in October 2026
 and lives in `archive/drone/` for reference. Nothing in there is used.
 
-## Setup (Windows)
+## Setup
+
+Both scripts create `.venv` with Python 3.12 and install `requirements.txt`
+(`mujoco==3.11.0` is the main dependency). Run once per machine after
+`git clone`. VS Code finds `.venv` on its own on both systems.
+
+**Windows (desktop):**
 
 ```powershell
 .\setup.ps1
+.\.venv\Scripts\python.exe some_script.py
 ```
 
-Creates `.venv` with Python 3.12 and installs `requirements.txt`
-(`mujoco==3.11.0` is the main dependency). Works the same on any Windows machine
-after `git clone`, so the desktop and the laptop stay identical.
+**macOS (laptop):** needs Python 3.12 first, e.g. `brew install python@3.12`.
 
-VS Code picks up `.venv\Scripts\python.exe` automatically via
-`.vscode/settings.json`.
+```bash
+./setup.sh
+.venv/bin/python some_script.py      # headless scripts
+.venv/bin/mjpython some_viewer.py    # anything that opens the MuJoCo viewer
+```
+
+On macOS the viewer must run under `mjpython`, not `python`. The OS requires the
+GUI loop to own the main thread; plain `python` raises a RuntimeError from
+`launch_passive`.
 
 ## Running
 

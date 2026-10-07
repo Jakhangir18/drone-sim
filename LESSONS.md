@@ -6,7 +6,8 @@ Each lesson has a concept, a source to read, a task I write myself, and a check
 that is a number asserted in code. A lesson is done when the check passes and
 the commit is pushed. Tick the box then.
 
-Sources marked ON MACHINE are under `.venv\Lib\site-packages\mujoco\`.
+Sources marked ON MACHINE are under `.venv\Lib\site-packages\mujoco\` on Windows
+and `.venv/lib/python3.12/site-packages/mujoco/` on the Mac.
 Sources marked OFF MACHINE are named but not linked; find them yourself.
 
 ## How a session goes
@@ -43,6 +44,7 @@ Sources marked OFF MACHINE are named but not linked; find them yourself.
   - Concept: `mj_step` advances one `timestep`. Viewer `sync`. Real-time factor, and why a `sleep` inside the timed region lies.
   - Source (ON MACHINE): `viewer.py`, `rollout.py`.
   - Task: `view.py` shows the arm in the viewer. It collapses. Explain in `LOG.md` why.
+  - Mac: run it with `.venv/bin/mjpython view.py`. Find out why plain `python` fails there and write one line about it.
   - Check: measure steps per second without sleep and print it.
 
 - [ ] **L4 - Actuators: holding a pose**
@@ -74,4 +76,11 @@ Sources marked OFF MACHINE are named but not linked; find them yourself.
   - Task: arrow keys move the target. The filter clamps workspace and speed. IK follows.
   - Check: a target outside the workspace is rejected and logged. No joint ever exceeds its limit.
 
-After L8 the professor can see an arm I control. Then we decide: gripper and contacts, streaming to a browser, or the real device.
+After L8 the professor can see an arm I control.
+
+## After the milestone: candidates
+
+- **VR controller / joystick teleoperation.** Move a VR controller or joystick, the arm copies the motion with smooth animation. This is the L8 adapter with a real device behind it. Open questions: which headset or controller, and does it give full 6-DoF pose or only sticks and buttons?
+- The bracelet, once the device is known.
+- Gripper and contacts (pick and place).
+- Streaming the arm pose to a browser for nicer rendering.

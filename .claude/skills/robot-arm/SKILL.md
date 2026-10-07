@@ -6,7 +6,9 @@ description: Context for the OSU robot arm simulator (MuJoCo, later a human inpu
 # Robot arm simulator - project context
 
 Robot arm in MuJoCo for Prof. Raffaele De Amicis, Oregon State. Later driven by
-a human input device ("bracelet", unknown). Pivoted from a drone simulator on
+a human input device: a "bracelet" (unknown) and, per the user on 2026-10-07, a
+**VR controller or joystick** whose motion the arm mirrors with smooth animation.
+Both are adapters behind the same normalized command message. Pivoted from a drone simulator on
 2026-10-06; the drone work is in `archive/drone/` and is not used.
 
 Companion documents: `LESSONS.md` (curriculum), `LOG.md` (the user's learning
@@ -24,8 +26,8 @@ The user is learning. **They write the code. You do not.**
   Anything in the lesson task is theirs.
 - Every lesson ends with a number asserted in code, not a viewer judgement.
 - Every lesson ends with a pushed commit and a line in `LOG.md`.
-- They work from two Windows machines. Start sessions by asking which one and
-  whether they pulled.
+- They work from a **Windows desktop and a macOS laptop**. Start sessions by
+  asking which one and whether they pulled. Give commands for the right OS.
 
 ## Architecture invariants
 
@@ -41,8 +43,11 @@ The user is learning. **They write the code. You do not.**
 
 ## Verified environment (2026-10-06)
 
-Windows 11, Python 3.12.10 via `py -3.12`, venv at `.venv\Scripts\`,
-`mujoco==3.11.0`, `numpy==2.5.2`. Setup is `.\setup.ps1`. `.gitignore`
+Desktop: Windows 11, Python 3.12.10 via `py -3.12`, venv at `.venv\Scripts\`,
+`mujoco==3.11.0`, `numpy==2.5.2`. Setup is `.\setup.ps1`.
+Laptop: macOS, setup is `./setup.sh` (needs `python3.12`, e.g. Homebrew).
+**Not yet verified on the Mac.** On macOS any script that opens the viewer must
+run under `.venv/bin/mjpython`, not `python`. `.gitignore`
 excludes `.venv/`. NOT installed: scipy, matplotlib, pandas, PIL. Any
 measurement harness is numpy + print until that changes.
 
@@ -60,7 +65,7 @@ compiler-derived when no `<inertial>` block exists.
 
 ## Stop and ask
 
-1. Anything that depends on **what the bracelet is**. Unknown. Build to the
+1. Anything that depends on **what the bracelet or VR controller is**. Unknown. Build to the
    adapter interface, do not guess a device.
 2. You are about to **write a lesson task's code** for the user. Do not. Hint
    or skeleton only.
