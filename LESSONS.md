@@ -28,6 +28,9 @@ Sources marked OFF MACHINE are named but not linked; find them yourself.
 ---
 
 - [ ] **L1 - Choosing a model like an engineer**
+.venv/bin/python -c "import mujoco; print(mujoco.__version__)"   # works always
+python -c "import mujoco; print(mujoco.__version__)"             # works only after activate
+ 
   - Concept: a Menagerie model is a validated MJCF with actuators, keyframes and collision classes already set. Choosing one means reading its README and XML, not its picture.
   - Source (OFF MACHINE): the `mujoco_menagerie` repository by google-deepmind.
   - Criteria: number of joints, has a gripper, has position actuators, has a `home` keyframe, license, matches what the lab might own.
