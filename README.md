@@ -37,6 +37,15 @@ GUI loop to own the main thread; plain `python` raises a RuntimeError from
 
 ## Running
 
+
+
+so here what do you need to run it 
+
+cd ~/drone-sim
+
+.venv/bin/python -m mujoco.viewer --mjcf="$PWD/assets/shadow_hand/scene_right.xml"
+
+
 Nothing runs yet. The arm model is chosen in lesson 1 (see `LESSONS.md`) and
 scripts appear as the lessons are completed.
 
@@ -46,7 +55,7 @@ scripts appear as the lessons are completed.
 |---|---|
 | `LESSONS.md` | The curriculum: one concept per lesson, task, numeric check |
 | `LOG.md` | Learning log: what was done, what was learned, what is unclear |
-| `AGENTS.md` | Rules every AI assistant must follow here: teach, do not just give answers |
+| `CLAUDE.md` | Rules for Claude Code here: teach, do not just give answers |
 | `TECHNOLOGY_RESEARCH.md` | Why MuJoCo over Isaac Lab, and the device-adapter architecture |
 | `.claude/skills/robot-arm/` | Project context for Claude: invariants, decisions, stop-and-ask points |
 | `archive/drone/` | The previous drone project, kept for history |
